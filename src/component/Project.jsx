@@ -7,7 +7,7 @@ const projectsData = [
    img: "https://i.postimg.cc/nzbhmmkg/Screenshot-2025-09-15-234142.png",
     tech: ["Tailwind CSS", "React", "JavaScript"],
     demo: "#",
-    code: "#",
+    code: "https://github.com/Manishkumar9525/potfolio",
   },
   {
     title: "Amazon Clone",
