@@ -609,7 +609,7 @@ export default function Hero() {
           {/* Profile Image */}
 
           <motion.img
-            src="public/WhatsApp Image 2026-08-26 at 10.52.58 PM (1).jpeg"
+            src="public/proimg/WhatsApp Image 2026-08-26 at 10.52.58 PM (1).jpeg"
             alt="Manish Kumar"
             animate={{
               y: [0, -10, 0],

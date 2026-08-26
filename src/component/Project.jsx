@@ -9,7 +9,7 @@ const projectsData = [
     title: "Portfolio Website",
     description:
       "Personal portfolio showcasing projects, skills, and creative web solutions.",
-    img: "public/Screenshot 2026-08-27 002141.png",
+    img: "public/proimg/Screenshot 2026-08-27 002141.png",
    tech: [
   "React.js",
   "JavaScript",
@@ -24,7 +24,7 @@ const projectsData = [
     title: "CareerPath AI",
     description:
      " AI-powered personalized career roadmap generator with structured learning paths.",
-    img: "public/Screenshot 2026-08-18 234408.png",
+    img: "public/proimg/Screenshot 2026-08-18 234408.png",
     tech: [
   "React.js",
   "JavaScript",
@@ -46,7 +46,7 @@ const projectsData = [
     title: "Civix Voicee",
     description:
       "Civix — A full-stack civic platform for creating petitions, participating in polls, discussing issues, and tracking community engagement.",
-    img: "public/Screenshot 2026-08-26 235438.png",
+    img: "public/proimg/Screenshot 2026-08-26 235438.png",
      tech: [
   "React.js",
   "JavaScript",
@@ -66,7 +66,7 @@ const projectsData = [
     title: "AquaVeda",
     description:
       "SIH 2024 finalist water conservation platform built using the MERN stack.",
-    img: "public/Screenshot 2026-08-27 000912.png",
+    img: "public/proimg/Screenshot 2026-08-27 000912.png",
     tech: [
   "React.js",
   "JavaScript",
