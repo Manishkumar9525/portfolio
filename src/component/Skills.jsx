@@ -1,135 +1,850 @@
-import React from 'react';
+import { motion } from "framer-motion";
+import { DURATION, EASE } from "../utils/animations";
 
-// A function to get the appropriate SVG icon for each skill
-const getSkillIcon = (skillName) => {
-  switch (skillName) {
-    case 'HTML':
-      return <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" alt="" className='h-10 w-10' />;
-    case 'CSS':
-      return <img src="https://blog.leonhassan.co.uk/content/images/2019/09/css3.svg" alt="" className='h-10 w-10'/>;
-    case 'JavaScript':
-      return <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuHnJDLOcdm_0b6N6kNj-1OvO9KhKYgqIy0w&s" alt="" className='h-10 w-10'/>;
-    case 'React JS':
-      return <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg/1200px-React_Logo_SVG.svg.png" alt="" className='h-10 w-10' />;
-    case 'Tailwind CSS':
-      return <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSDKn3vA2YUbXzN0ZC3gALWJ08gJN-Drl15w&s" alt=""className='h-10 w-10' />;
-    case 'Bootstrap':
-      return <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/1200px-Bootstrap_logo.svg.png" alt=""className='h-10 w-10' />;
-    case 'Node JS':
-      return <img src="https://img.icons8.com/fluent/200/node-js.png" alt=""className='h-10 w-10' />;
-    case 'Express JS':
-      return <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnDneBGnQL7E9hZDwztRO1GfQcCj1FqRrhBw&s" alt=""className='h-10 w-10' />;
-    case 'MySQL':
-      return <img src="https://www.vhv.rs/dpng/d/256-2563210_sql-programming-language-logo-hd-png-download.png" alt=""className='h-10 w-10' />;
-    case 'MongoDB':
-      return <img src="https://www.opc-router.de/wp-content/uploads/2021/03/mongodb_thumbnail.png" alt=""className='h-10 w-10' />;
-    case 'C':
-      return <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/570px-C_Programming_Language.svg.png?20201031132917" alt=""className='h-10 w-10' />;
-    case 'C++':
-      return <img src="https://www.vikingsoftware.com/wp-content/uploads/2024/02/C-2.png" alt=""className='h-10 w-10' />;
-    case 'Git':
-      return <img src="https://avatars.githubusercontent.com/u/18133?s=200&v=4" alt=""className='h-10 w-10' />;
-    case 'GitHub':
-      return <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt=""className='h-10 w-10' />;
-    case 'VS Code':
-      return <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnoirCtiJhhN8Tvo0FJRRd4CInsOXkRX9EbA&s" alt=""className='h-10 w-10'/>;
-    case 'Vercel':
-      return <img src="https://images.ctfassets.net/crb83veve8xb/2YfNwMlyl1U0DLVXRgL8TB/9e8474e083f2ba01a296343d84f2282d/vercel_thumbnail.webp" alt="" className='h-10 w-10'/>;
-    case 'Netlify':
-      return <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrvwgpiqc9FrNeVcW-NQekpPIwIcktyys_nw&s" alt="" className='h-10 w-10'/>;
-    case 'Figma':
-      return <img src="https://cdn.sanity.io/images/599r6htc/regionalized/5094051dac77593d0f0978bdcbabaf79e5bb855c-1080x1080.png?w=540&h=540&q=75&fit=max&auto=format" alt="" className='h-10 w-10'/>;
-    default:
-      return null;
-  }
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaGitAlt,
+  FaGithub,
+  FaFigma,
+  FaPython,
+} from "react-icons/fa";
+
+import {
+  SiExpress,
+  SiMongodb,
+  SiCplusplus,
+  SiTailwindcss,
+  SiPostman,
+  SiVercel,
+  SiNetlify,
+  SiRender,
+  SiJest,
+  SiMysql,
+} from "react-icons/si";
+
+import { VscVscode } from "react-icons/vsc";
+
+/* =========================================================
+   SKILLS DATA
+========================================================= */
+
+const skills = [
+  {
+    title: "Languages",
+    items: [
+      {
+        icon: <FaJs />,
+        name: "JavaScript",
+        color: "text-yellow-400",
+      },
+      {
+        icon: <FaPython />,
+        name: "Python",
+        color: "text-orange-400",
+      },
+      {
+        icon: <SiCplusplus />,
+        name: "C++",
+        color: "text-blue-500",
+      },
+      {
+        icon: <SiMysql />,
+        name: "SQL",
+        color: "text-blue-400",
+      },
+    ],
+  },
+
+  {
+    title: "Frontend",
+    items: [
+      {
+        icon: <FaReact />,
+        name: "React.js",
+        color: "text-cyan-400",
+      },
+      {
+        icon: <SiTailwindcss />,
+        name: "Tailwind CSS",
+        color: "text-sky-400",
+      },
+      {
+        icon: <FaHtml5 />,
+        name: "HTML5",
+        color: "text-orange-500",
+      },
+      {
+        icon: <FaCss3Alt />,
+        name: "CSS3",
+        color: "text-blue-500",
+      },
+      {
+        icon: <FaFigma />,
+        name: "Figma",
+        color: "text-pink-400",
+      },
+    ],
+  },
+
+  {
+    title: "Backend",
+    items: [
+      {
+        icon: <FaNodeJs />,
+        name: "Node.js",
+        color: "text-green-400",
+      },
+      {
+        icon: <SiExpress />,
+        name: "Express.js",
+        color: "text-zinc-300",
+      },
+    ],
+  },
+
+  {
+    title: "Database",
+    items: [
+      {
+        icon: <SiMongodb />,
+        name: "MongoDB",
+        color: "text-green-500",
+      },
+    ],
+  },
+
+  {
+    title: "Tools",
+    items: [
+      {
+        icon: <FaGitAlt />,
+        name: "Git",
+        color: "text-orange-400",
+      },
+      {
+        icon: <FaGithub />,
+        name: "GitHub",
+        color: "text-white",
+      },
+      {
+        icon: <VscVscode />,
+        name: "VS Code",
+        color: "text-blue-400",
+      },
+      {
+        icon: <SiPostman />,
+        name: "Postman",
+        color: "text-orange-500",
+      },
+      {
+        icon: <SiVercel />,
+        name: "Vercel",
+        color: "text-white",
+      },
+      {
+        icon: <SiNetlify />,
+        name: "Netlify",
+        color: "text-cyan-400",
+      },
+      {
+        icon: <SiRender />,
+        name: "Render",
+        color: "text-purple-400",
+      },
+    ],
+  },
+
+  {
+    title: "Testing",
+    items: [
+      {
+        icon: <SiJest />,
+        name: "Jest",
+        color: "text-red-400",
+      },
+      {
+        icon: <SiPostman />,
+        name: "API Testing",
+        color: "text-orange-500",
+      },
+    ],
+  },
+];
+
+/* =========================================================
+   CORE CONCEPTS
+========================================================= */
+
+const coreConcepts = [
+  "Data Structures & Algorithms",
+  "OOP",
+  "DBMS",
+  "REST APIs",
+   "computer Network"
+];
+
+/* =========================================================
+   FLOATING SKILL
+========================================================= */
+
+const FloatingSkill = ({ skill, index }) => {
+  return (
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 0.4,
+        y: 30,
+      }}
+      whileInView={{
+        opacity: 1,
+        scale: 1,
+        y: 0,
+      }}
+      viewport={{ once: false }}
+      transition={{
+        duration: 0.7,
+        delay: index * 0.07,
+        ease: EASE,
+      }}
+      whileHover={{
+        scale: 1.15,
+        y: -8,
+      }}
+      className="relative group cursor-pointer"
+    >
+      {/* Skill Glow */}
+
+      <motion.div
+        animate={{
+          opacity: [0.1, 0.25, 0.1],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          delay: index * 0.2,
+          ease: "easeInOut",
+        }}
+        className="
+          absolute
+          inset-0
+          rounded-full
+          bg-white/10
+          blur-2xl
+        "
+      />
+
+      {/* Skill Pill */}
+
+      <div
+        className="
+          relative
+          flex
+          items-center
+          gap-3
+          px-5
+          py-3
+          rounded-full
+          border
+          border-white/10
+          bg-black/60
+          backdrop-blur-xl
+          shadow-[0_10px_40px_rgba(0,0,0,0.5)]
+          transition-all
+          duration-500
+          group-hover:border-white/30
+          group-hover:bg-white/[0.08]
+        "
+      >
+        {/* Icon */}
+
+        <motion.span
+          animate={{
+            rotate: [0, 5, -5, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: index * 0.15,
+          }}
+          className={`text-2xl ${skill.color}`}
+        >
+          {skill.icon}
+        </motion.span>
+
+        {/* Name */}
+
+        <span
+          className="
+            text-sm
+            font-medium
+            text-zinc-400
+            group-hover:text-white
+            transition-colors
+            duration-300
+            whitespace-nowrap
+          "
+        >
+          {skill.name}
+        </span>
+      </div>
+    </motion.div>
+  );
 };
 
-export default function Skills() {
-  const skillCategories = [
-    {
-      title: "Frontend",
-      color: "border-pink-500",
-      skills: [
-        { name: "HTML", icon: "html" },
-        { name: "CSS", icon: "css" },
-        { name: "JavaScript", icon: "javascript" },
-        { name: "React JS", icon: "react" },
-        { name: "Tailwind CSS", icon: "tailwindcss" },
-        { name: "Bootstrap", icon: "bootstrap" }
-      ]
-    },
-    {
-      title: "Backend",
-      color: "border-green-500",
-      skills: [
-        { name: "Node JS", icon: "nodejs" },
-        { name: "Express JS", icon: "expressjs" },
-        { name: "MySQL", icon: "mysql" },
-        { name: "MongoDB", icon: "mongodb" },
-      ]
-    },
-    {
-      title: "Languages",
-      color: "border-blue-500",
-      skills: [
-        { name: "C", icon: "c" },
-        { name: "C++", icon: "cplusplus" },
-        { name: "JavaScript", icon: "javascript" } 
-      ]
-    },
-    {
-      title: "Tools",
-      color: "border-yellow-500",
-      skills: [
-        { name: "Git", icon: "git" },
-        { name: "GitHub", icon: "github" },
-        { name: "VS Code", icon: "vscode" },
-        { name: "Vercel", icon: "vercel" },
-        { name: "Netlify", icon: "netlify" },
-        { name: "Figma", icon: "figma" }
-      ]
-    }
-  ];
+/* =========================================================
+   TECHNOLOGY COUNT BADGE
+========================================================= */
 
+const TechnologyBadge = () => {
   return (
-    <section id="skills" className="bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white py-17 px-6 md:px-28">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-extrabold text-center mb-4">My Skills</h2>
-        <div className="h-1.5 w-32 bg-blue-500 mx-auto rounded-full mb-12"></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {skillCategories.map((category) => (
-            <div
-              key={category.title}
-              className={`relative bg-[#111827] p-8 rounded-3xl shadow-lg border-2 ${category.color} overflow-hidden group`}
-            >
-              {/* Animated glowing border */}
-             <div className="absolute inset-0 rounded-3xl border-2 border-transparent 
-  bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#6d28d9] 
-  opacity-0 group-hover:opacity-100 blur-sm transition duration-700 animate-gradient">
-</div>
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: 40,
+        y: -20,
+        scale: 0.8,
+      }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+      }}
+      viewport={{
+        once: false,
+      }}
+      transition={{
+        duration: 0.8,
+        delay: 0.4,
+        ease: EASE,
+      }}
+      whileHover={{
+        y: -6,
+        scale: 1.05,
+      }}
+      className="
+        absolute
+        top-0
+        right-2
+        md:right-10
+        lg:right-20
+        z-30
+        px-5
+        md:px-6
+        py-4
+        rounded-2xl
+        border
+        border-white/10
+        bg-white/[0.04]
+        backdrop-blur-2xl
+        shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+        group
+        overflow-hidden
+      "
+    >
+      {/* Moving Shine */}
 
+      <motion.div
+        animate={{
+          x: ["-120%", "120%"],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="
+          absolute
+          top-0
+          left-0
+          w-1/2
+          h-px
+          bg-gradient-to-r
+          from-transparent
+          via-white/50
+          to-transparent
+        "
+      />
 
+      <div className="relative flex items-center gap-4">
 
-              <div className="relative z-10">
-                <h3 className="text-2xl font-semibold mb-8">{category.title}</h3>
-                <div className="flex flex-wrap gap-4">
-                  {category.skills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="flex items-center gap-4 bg-[#1f2937] px-5 py-3 rounded-xl shadow 
-                        hover:shadow-lg hover:shadow-blue-500/40 
-                        transition-all duration-500 text-lg"
-                    >
-                      {getSkillIcon(skill.name)}
-                      <span>{skill.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* Number */}
+
+        <motion.span
+          animate={{
+            opacity: [0.7, 1, 0.7],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+          }}
+          className="
+            text-3xl
+            md:text-4xl
+            font-black
+            text-white
+          "
+        >
+          20+
+        </motion.span>
+
+        {/* Text */}
+
+        <div>
+          <p
+            className="
+              text-[10px]
+              md:text-xs
+              uppercase
+              tracking-[0.2em]
+              text-zinc-500
+            "
+          >
+            Technologies
+          </p>
+
+          <p className="text-sm text-zinc-300 mt-1">
+            & Tools
+          </p>
         </div>
       </div>
+    </motion.div>
+  );
+};
+
+/* =========================================================
+   MAIN SECTION
+========================================================= */
+
+const SkillSection = () => {
+  const allSkills = skills.flatMap(
+    (category) => category.items
+  );
+
+  return (
+    <section
+      id="skills"
+      className="
+        relative
+        min-h-screen
+        py-28
+        px-4
+        sm:px-6
+        lg:px-12
+        overflow-hidden
+        bg-black
+        text-white
+      "
+    >
+
+      {/* =====================================================
+          BACKGROUND
+      ===================================================== */}
+
+      <div className="absolute inset-0 pointer-events-none">
+
+        {/* Main Glow */}
+
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.12, 0.22, 0.12],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="
+            absolute
+            left-1/2
+            top-1/2
+            -translate-x-1/2
+            -translate-y-1/2
+            w-[450px]
+            h-[450px]
+            md:w-[700px]
+            md:h-[700px]
+            rounded-full
+            bg-white/[0.04]
+            blur-[120px]
+          "
+        />
+
+        {/* Floating Dots */}
+
+        {[...Array(18)].map((_, index) => (
+          <motion.span
+            key={index}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.1, 0.4, 0.1],
+            }}
+            transition={{
+              duration: 3 + (index % 4),
+              repeat: Infinity,
+              delay: index * 0.3,
+            }}
+            className="
+              absolute
+              w-1
+              h-1
+              bg-white
+              rounded-full
+            "
+            style={{
+              left: `${(index * 37) % 100}%`,
+              top: `${(index * 53) % 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* =================================================
+            HEADING
+        ================================================= */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: false,
+          }}
+          transition={{
+            duration: DURATION,
+            ease: EASE,
+          }}
+          className="text-center"
+        >
+          <span
+            className="
+              text-xs
+              md:text-sm
+              uppercase
+              tracking-[0.4em]
+              text-zinc-500
+            "
+          >
+            My Stack
+          </span>
+
+          <h2
+            className="
+              mt-4
+              text-5xl
+              md:text-6xl
+              lg:text-7xl
+              font-black
+              tracking-tight
+            "
+          >
+            Technical{" "}
+            <span className="text-zinc-600">
+              Arsenal
+            </span>
+          </h2>
+
+          <p
+            className="
+              mt-6
+              max-w-2xl
+              mx-auto
+              text-zinc-500
+              text-base
+              md:text-lg
+              leading-relaxed
+            "
+          >
+            Technologies and tools I use to turn ideas
+            into scalable, real-world applications.
+          </p>
+        </motion.div>
+
+        {/* =================================================
+            ORBIT AREA
+        ================================================= */}
+
+        <div
+          className="
+            relative
+            mt-20
+            min-h-[600px]
+            flex
+            items-center
+            justify-center
+          "
+        >
+
+          {/* =================================================
+              TECHNOLOGY BADGE
+          ================================================= */}
+
+          <TechnologyBadge />
+
+          {/* =================================================
+              OUTER ORBIT
+          ================================================= */}
+
+          <motion.div
+            animate={{
+              rotate: 360,
+            }}
+            transition={{
+              duration: 35,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="
+              absolute
+              w-[280px]
+              h-[280px]
+              md:w-[470px]
+              md:h-[470px]
+              rounded-full
+              border
+              border-white/[0.06]
+            "
+          />
+
+          {/* =================================================
+              MIDDLE ORBIT
+          ================================================= */}
+
+          <motion.div
+            animate={{
+              rotate: -360,
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="
+              absolute
+              w-[190px]
+              h-[190px]
+              md:w-[340px]
+              md:h-[340px]
+              rounded-full
+              border
+              border-white/[0.08]
+              border-dashed
+            "
+          />
+
+          {/* =================================================
+              INNER ORBIT
+          ================================================= */}
+
+          <motion.div
+            animate={{
+              rotate: 360,
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="
+              absolute
+              w-[110px]
+              h-[110px]
+              md:w-[210px]
+              md:h-[210px]
+              rounded-full
+              border
+              border-white/[0.1]
+            "
+          />
+
+          {/* =================================================
+              CENTER DOT
+          ================================================= */}
+
+          <motion.div
+            animate={{
+              scale: [1, 1.15, 1],
+              opacity: [0.4, 0.8, 0.4],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="
+              absolute
+              w-4
+              h-4
+              md:w-5
+              md:h-5
+              rounded-full
+              bg-white
+              shadow-[0_0_40px_rgba(255,255,255,0.5)]
+              z-10
+            "
+          />
+
+          {/* =================================================
+              FLOATING SKILLS
+          ================================================= */}
+
+          <div
+            className="
+              absolute
+              inset-0
+              flex
+              flex-wrap
+              justify-center
+              items-center
+              gap-3
+              md:gap-5
+              content-center
+              px-2
+              md:px-8
+              pt-12
+            "
+          >
+            {allSkills.map((skill, index) => (
+              <FloatingSkill
+                key={`${skill.name}-${index}`}
+                skill={skill}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* =================================================
+            CORE CONCEPTS
+        ================================================= */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: false,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
+          className="mt-10"
+        >
+
+          <div className="flex items-center gap-5 mb-7">
+
+            <span
+              className="
+                text-xs
+                uppercase
+                tracking-[0.3em]
+                text-zinc-600
+                whitespace-nowrap
+              "
+            >
+              Core Concepts
+            </span>
+
+            <div className="h-px flex-1 bg-white/10" />
+
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+
+            {coreConcepts.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{
+                  opacity: 0,
+                  x: -20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                viewport={{
+                  once: false,
+                }}
+                transition={{
+                  delay: index * 0.08,
+                }}
+                whileHover={{
+                  y: -5,
+                  scale: 1.04,
+                }}
+                className="
+                  px-5
+                  py-3
+                  rounded-full
+                  border
+                  border-white/10
+                  bg-white/[0.025]
+                  text-sm
+                  text-zinc-400
+                  hover:text-white
+                  hover:border-white/25
+                  hover:bg-white/[0.06]
+                  transition-all
+                  duration-300
+                  cursor-default
+                "
+              >
+                {item}
+              </motion.div>
+            ))}
+
+          </div>
+        </motion.div>
+
+      </div>
+
+      {/* =====================================================
+          BOTTOM LINE
+      ===================================================== */}
+
+      <motion.div
+        initial={{
+          scaleX: 0,
+        }}
+        whileInView={{
+          scaleX: 1,
+        }}
+        viewport={{
+          once: false,
+        }}
+        transition={{
+          duration: 1.2,
+        }}
+        className="
+          mt-24
+          h-px
+          bg-gradient-to-r
+          from-transparent
+          via-white/20
+          to-transparent
+        "
+      />
+
     </section>
   );
-}
+};
+
+export default SkillSection;

@@ -1,99 +1,464 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+
+const navLinks = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Achievements", href: "#achievements" },
+  { name: "Contact", href: "#contact" },
+];
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  /* =====================================================
+     SCROLL NAVIGATION
+  ===================================================== */
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        // scrolling down → hide navbar
-        setShowNav(false);
-      } else {
-        // scrolling up → show navbar
+      const currentScrollY = window.scrollY;
+
+      // Always show navbar at top
+      if (currentScrollY <= 20) {
         setShowNav(true);
       }
-      setLastScrollY(window.scrollY);
+      // Scrolling down
+      else if (currentScrollY > lastScrollY) {
+        setShowNav(false);
+        setIsOpen(false);
+      }
+      // Scrolling up
+      else {
+        setShowNav(true);
+      }
+
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [lastScrollY]);
 
+  /* =====================================================
+     CLOSE MOBILE MENU
+  ===================================================== */
+
+  const handleNavClick = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-transform duration-500 ${
-        showNav ? "translate-y-0" : "-translate-y-full"
-      } bg-[#0f172a]/70 backdrop-blur-md shadow-md`}
+    <motion.header
+      initial={{
+        y: -100,
+        opacity: 0,
+      }}
+      animate={{
+        y: showNav ? 0 : -120,
+        opacity: showNav ? 1 : 0,
+      }}
+      transition={{
+        duration: 0.45,
+        ease: "easeInOut",
+      }}
+      className="
+        fixed
+        top-0
+        left-0
+        w-full
+        z-50
+        px-3
+        sm:px-5
+        md:px-8
+        pt-3
+      "
     >
-      <nav className="max-w-6xl mx-auto px-5 sm:px-10 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <a href="#" className="text-3xl font-bold">
-          <span className="text-white">Manish</span>
-          <span className="text-blue-500">.dev</span>
-        </a>
+      <nav
+        className="
+          relative
+          max-w-7xl
+          mx-auto
+          px-5
+          sm:px-7
+          py-3
+          rounded-2xl
+          border
+          border-white/10
+          bg-black/70
+          backdrop-blur-2xl
+          shadow-[0_15px_60px_rgba(0,0,0,0.45)]
+        "
+      >
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex gap-6 text-[1.2rem] font-medium">
-          <li><a href="#home" className="hover:text-blue-500 transition text-white">Home</a></li>
-          <li><a href="#about" className="hover:text-blue-500 transition text-white">About</a></li>
-          <li><a href="#skills" className="hover:text-blue-500 transition text-white">Skills</a></li>
-          <li><a href="#projects" className="hover:text-blue-500 transition text-white">Projects</a></li>
-          <li><a href="#achievements" className="hover:text-blue-500 transition text-white">Achievements</a></li>
-          <li><a href="#contact" className="hover:text-blue-500 transition text-white">Contact</a></li>
-        </ul>
+        {/* =================================================
+            TOP LIGHT
+        ================================================= */}
 
-        {/* Toggle Button (Mobile) */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="focus:outline-none"
+        <motion.div
+          animate={{
+            x: ["-120%", "120%"],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="
+            absolute
+            top-0
+            left-0
+            w-1/3
+            h-px
+            bg-gradient-to-r
+            from-transparent
+            via-white/40
+            to-transparent
+            pointer-events-none
+          "
+        />
+
+        <div className="flex items-center justify-between">
+
+          {/* =================================================
+              LOGO
+          ================================================= */}
+
+          <motion.a
+            href="#home"
+            onClick={handleNavClick}
+            whileHover={{
+              scale: 1.03,
+            }}
+            className="
+              text-2xl
+              sm:text-3xl
+              font-black
+              tracking-tight
+              text-white
+            "
           >
-            {isOpen ? (
-              // Close Icon
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              // Hamburger Icon
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </nav>
+            Manish
+            <span className="text-zinc-600">
+              .dev
+            </span>
+          </motion.a>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-[#0f172a]/80 backdrop-blur-md text-white px-5 pb-4">
-          <ul className="flex flex-col gap-4 text-sm font-medium">
-            <li><a href="#home" className="hover:text-blue-500 transition">Home</a></li>
-            <li><a href="#about" className="hover:text-blue-500 transition">About</a></li>
-            <li><a href="#skills" className="hover:text-blue-500 transition">Skills</a></li>
-            <li><a href="#projects" className="hover:text-blue-500 transition">Projects</a></li>
-            <li><a href="#achievements" className="hover:text-blue-500 transition">Achievements</a></li>
-            <li><a href="#contact" className="hover:text-blue-500 transition">Contact</a></li>
-          </ul>
+          {/* =================================================
+              DESKTOP NAV
+          ================================================= */}
+
+          <div className="hidden md:flex items-center gap-1">
+
+            {navLinks.map((link, index) => (
+              <motion.a
+                key={link.name}
+                href={link.href}
+                initial={{
+                  opacity: 0,
+                  y: -10,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: index * 0.06,
+                }}
+                className="
+                  group
+                  relative
+                  px-4
+                  py-2.5
+                  rounded-full
+                  text-sm
+                  text-zinc-500
+                  hover:text-white
+                  transition-colors
+                  duration-300
+                "
+              >
+                {link.name}
+
+                {/* Hover Background */}
+
+                <span
+                  className="
+                    absolute
+                    inset-0
+                    rounded-full
+                    bg-white/[0.05]
+                    opacity-0
+                    group-hover:opacity-100
+                    transition-opacity
+                    duration-300
+                    -z-10
+                  "
+                />
+
+                {/* Bottom Dot */}
+
+                <span
+                  className="
+                    absolute
+                    bottom-1
+                    left-1/2
+                    -translate-x-1/2
+                    w-0
+                    h-[2px]
+                    rounded-full
+                    bg-white
+                    group-hover:w-3
+                    transition-all
+                    duration-300
+                  "
+                />
+              </motion.a>
+            ))}
+
+          </div>
+
+          {/* =================================================
+              DESKTOP CTA
+          ================================================= */}
+
+          <motion.a
+            href="#contact"
+            whileHover={{
+              y: -2,
+              scale: 1.03,
+            }}
+            whileTap={{
+              scale: 0.97,
+            }}
+            className="
+              hidden
+              md:flex
+              items-center
+              gap-2
+              px-5
+              py-2.5
+              rounded-full
+              bg-white
+              text-black
+              text-sm
+              font-semibold
+              hover:bg-zinc-200
+              transition-colors
+              duration-300
+            "
+          >
+            Let's Talk
+
+            <FaArrowUpRightFromSquare className="text-xs" />
+          </motion.a>
+
+          {/* =================================================
+              MOBILE MENU BUTTON
+          ================================================= */}
+
+          <motion.button
+            whileTap={{
+              scale: 0.9,
+            }}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
+            className="
+              md:hidden
+              relative
+              w-11
+              h-11
+              rounded-full
+              border
+              border-white/10
+              bg-white/[0.04]
+              flex
+              items-center
+              justify-center
+              text-zinc-300
+              hover:text-white
+              hover:border-white/25
+              transition-all
+              duration-300
+            "
+          >
+
+            <span
+              className={`
+                absolute
+                w-5
+                h-px
+                bg-current
+                transition-transform
+                duration-300
+                ${
+                  isOpen
+                    ? "rotate-45"
+                    : "-translate-y-1.5"
+                }
+              `}
+            />
+
+            <span
+              className={`
+                absolute
+                w-5
+                h-px
+                bg-current
+                transition-opacity
+                duration-300
+                ${
+                  isOpen
+                    ? "opacity-0"
+                    : "opacity-100"
+                }
+              `}
+            />
+
+            <span
+              className={`
+                absolute
+                w-5
+                h-px
+                bg-current
+                transition-transform
+                duration-300
+                ${
+                  isOpen
+                    ? "-rotate-45"
+                    : "translate-y-1.5"
+                }
+              `}
+            />
+
+          </motion.button>
+
         </div>
-      )}
-    </header>
+
+        {/* =================================================
+            MOBILE MENU
+        ================================================= */}
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{
+                height: 0,
+                opacity: 0,
+              }}
+              animate={{
+                height: "auto",
+                opacity: 1,
+              }}
+              exit={{
+                height: 0,
+                opacity: 0,
+              }}
+              transition={{
+                duration: 0.3,
+                ease: "easeInOut",
+              }}
+              className="
+                md:hidden
+                overflow-hidden
+              "
+            >
+
+              <div
+                className="
+                  mt-4
+                  pt-4
+                  border-t
+                  border-white/10
+                  space-y-1
+                "
+              >
+
+                {navLinks.map((link, index) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    onClick={handleNavClick}
+                    initial={{
+                      opacity: 0,
+                      x: -15,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    transition={{
+                      delay: index * 0.05,
+                    }}
+                    className="
+                      flex
+                      items-center
+                      justify-between
+                      px-4
+                      py-3
+                      rounded-xl
+                      text-sm
+                      text-zinc-500
+                      hover:text-white
+                      hover:bg-white/[0.05]
+                      transition-all
+                      duration-300
+                    "
+                  >
+                    {link.name}
+
+                    <span className="text-zinc-700">
+                      →
+                    </span>
+                  </motion.a>
+                ))}
+
+                {/* Mobile CTA */}
+
+                <motion.a
+                  href="#contact"
+                  onClick={handleNavClick}
+                  whileTap={{
+                    scale: 0.98,
+                  }}
+                  className="
+                    flex
+                    items-center
+                    justify-center
+                    gap-2
+                    mt-3
+                    px-4
+                    py-3
+                    rounded-xl
+                    bg-white
+                    text-black
+                    text-sm
+                    font-semibold
+                  "
+                >
+                  Let's Talk
+
+                  <FaArrowUpRightFromSquare className="text-xs" />
+                </motion.a>
+
+              </div>
+
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </nav>
+    </motion.header>
   );
 }
